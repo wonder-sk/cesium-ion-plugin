@@ -127,7 +127,7 @@ class CesiumIonPlugin(QObject):
                     'plugin, and will never be shared with the Cesium ion '
                     'service. Don\'t use the same password as you use for '
                     'ion!)'),
-            QMessageBox.Ok
+            QMessageBox.StandardButton.Ok
         )
 
         QgsApplication.authManager().setMasterPassword()

@@ -138,7 +138,7 @@ class CesiumIonLayerUtils:
         # pylint: enable=import-outside-toplevel
 
         dialog = AddAssetDialog()
-        if not dialog.exec_():
+        if not dialog.exec():
             return
 
         if dialog.existing_token():
@@ -166,7 +166,7 @@ class CesiumIonLayerUtils:
         # pylint: enable=import-outside-toplevel
 
         dialog = AddAssetByIdDialog()
-        if not dialog.exec_():
+        if not dialog.exec():
             return
 
         asset = Asset(

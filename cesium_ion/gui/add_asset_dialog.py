@@ -35,7 +35,7 @@ class AddAssetDialog(QDialog):
         vl.addWidget(self.select_token_widget)
 
         self.button_box = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
         )
         self.button_box.accepted.connect(self.accept)
         self.button_box.rejected.connect(self.reject)
@@ -44,7 +44,7 @@ class AddAssetDialog(QDialog):
         self.setLayout(vl)
 
         self.select_token_widget.is_valid_changed.connect(self._set_valid)
-        self.button_box.button(QDialogButtonBox.Ok).setEnabled(
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setEnabled(
             self.select_token_widget.is_valid()
         )
 
@@ -52,7 +52,7 @@ class AddAssetDialog(QDialog):
         """
         Sets whether the dialog state is valid
         """
-        self.button_box.button(QDialogButtonBox.Ok).setEnabled(
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setEnabled(
             is_valid
         )
 
@@ -87,7 +87,7 @@ class AddAssetByIdDialog(QDialog):
         vl.addWidget(self.asset_widget)
 
         self.button_box = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
         )
         self.button_box.accepted.connect(self.accept)
         self.button_box.rejected.connect(self.reject)
@@ -96,7 +96,7 @@ class AddAssetByIdDialog(QDialog):
         self.setLayout(vl)
 
         self.asset_widget.is_valid_changed.connect(self._set_valid)
-        self.button_box.button(QDialogButtonBox.Ok).setEnabled(
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setEnabled(
             self.asset_widget.is_valid()
         )
 
@@ -104,7 +104,7 @@ class AddAssetByIdDialog(QDialog):
         """
         Sets whether the dialog state is valid
         """
-        self.button_box.button(QDialogButtonBox.Ok).setEnabled(
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setEnabled(
             is_valid
         )
 

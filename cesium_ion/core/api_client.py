@@ -130,15 +130,15 @@ class CesiumIonApiClient(QObject):
         blocking_request.setAuthCfg(API_CLIENT.OAUTH_ID)
 
         res = blocking_request.get(req)
-        if res != QgsBlockingNetworkRequest.NoError:
+        if res != QgsBlockingNetworkRequest.ErrorCode.NoError:
             self.error_occurred.emit(blocking_request.errorMessage())
             return []
 
         reply = blocking_request.reply()
-        if reply.error() == QNetworkReply.OperationCanceledError:
+        if reply.error() == QNetworkReply.NetworkError.OperationCanceledError:
             return []
 
-        if reply.error() != QNetworkReply.NoError:
+        if reply.error() != QNetworkReply.NetworkError.NoError:
             self.error_occurred.emit(reply.errorString())
             return []
 
@@ -173,11 +173,11 @@ class CesiumIonApiClient(QObject):
         """
         Parses a list tokens reply and returns a list of tokens
         """
-        if reply.error() != QNetworkReply.NoError:
+        if reply.error() != QNetworkReply.NetworkError.NoError:
             self.error_occurred.emit(reply.errorString())
             return []
 
-        if reply.error() == QNetworkReply.OperationCanceledError:
+        if reply.error() == QNetworkReply.NetworkError.OperationCanceledError:
             return []
 
         reply_data = reply.readAll()
@@ -204,15 +204,15 @@ class CesiumIonApiClient(QObject):
         blocking_request.setAuthCfg(API_CLIENT.OAUTH_ID)
 
         res = blocking_request.post(request, json.dumps(params).encode())
-        if res != QgsBlockingNetworkRequest.NoError:
+        if res != QgsBlockingNetworkRequest.ErrorCode.NoError:
             self.error_occurred.emit(blocking_request.errorMessage())
             return None
 
         reply = blocking_request.reply()
-        if reply.error() == QNetworkReply.OperationCanceledError:
+        if reply.error() == QNetworkReply.NetworkError.OperationCanceledError:
             return None
 
-        if reply.error() != QNetworkReply.NoError:
+        if reply.error() != QNetworkReply.NetworkError.NoError:
             self.error_occurred.emit(reply.errorString())
             return None
 
