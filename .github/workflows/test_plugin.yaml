@@ -37,6 +37,18 @@ jobs:
           docker pull "$DOCKER_IMAGE":${{ matrix.docker_tags }}
           docker run -d --name qgis-testing-environment -v "$GITHUB_WORKSPACE":/tests_directory -e DISPLAY=:99 "$DOCKER_IMAGE":${{ matrix.docker_tags }} tail -f /dev/null
 
+      - name: Install QGIS test scripts
+        run: |
+          SCRIPTS_BASE="https://raw.githubusercontent.com/qgis/QGIS/master/.docker/qgis_resources/test_runner"
+          mkdir -p /tmp/qgis_scripts
+          curl -fsSL "$SCRIPTS_BASE/qgis_setup.sh" -o /tmp/qgis_scripts/qgis_setup.sh
+          curl -fsSL "$SCRIPTS_BASE/qgis_testrunner.sh" -o /tmp/qgis_scripts/qgis_testrunner.sh
+          curl -fsSL "$SCRIPTS_BASE/qgis_testrunner.py" -o /tmp/qgis_scripts/qgis_testrunner.py
+          curl -fsSL "$SCRIPTS_BASE/qgis_startup.py" -o /tmp/qgis_scripts/qgis_startup.py
+          docker cp /tmp/qgis_scripts/. qgis-testing-environment:/usr/bin/
+          docker exec qgis-testing-environment chmod +x /usr/bin/qgis_setup.sh /usr/bin/qgis_testrunner.sh /usr/bin/qgis_testrunner.py /usr/bin/qgis_startup.py
+          docker exec qgis-testing-environment apt-get install -y --no-install-recommends expect
+
       - name: Docker set up QGIS
         run: |
           docker exec qgis-testing-environment sh -c "qgis_setup.sh $PLUGIN_NAME"
